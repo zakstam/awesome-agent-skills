@@ -1028,10 +1028,7 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 
 </details>
 
-<details>
-<summary><h3 style="display:inline">Community Skills</h3></summary>
-
-</details>
+### Community Skills
 
 <details>
 <summary><h3 style="display:inline">Marketing</h3></summary>
