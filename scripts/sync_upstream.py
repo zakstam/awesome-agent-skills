@@ -89,3 +89,17 @@ def parse_readme(text: str) -> dict[str, SkillEntry]:
             )
 
     return skills
+
+
+def diff_skills(
+    upstream: dict[str, SkillEntry],
+    local: dict[str, SkillEntry],
+    snapshot_urls: set[str] | None,
+) -> tuple[dict[str, SkillEntry], set[str]]:
+    """Return (new_skills, removed_urls)."""
+    new = {url: entry for url, entry in upstream.items() if url not in local}
+    if snapshot_urls is None:
+        removed = set()
+    else:
+        removed = snapshot_urls - set(upstream.keys())
+    return new, removed

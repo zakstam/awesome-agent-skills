@@ -80,3 +80,38 @@ def test_skip_compatibility_table():
 | Claude Code | `.claude/skills/` | `~/.claude/skills/` | [Docs](https://docs.anthropic.com) |"""
     skills = parse_readme(readme)
     assert len(skills) == 0
+
+
+from sync_upstream import diff_skills
+
+def test_diff_finds_new_skills():
+    upstream = {
+        "https://github.com/a/1": SkillEntry("https://github.com/a/1", "Skill A", "Section A", "| raw |"),
+        "https://github.com/b/2": SkillEntry("https://github.com/b/2", "Skill B", "Section B", "| raw |"),
+    }
+    local = {
+        "https://github.com/a/1": SkillEntry("https://github.com/a/1", "Skill A", "Section A", "| raw |"),
+    }
+    snapshot_urls = set()
+    new, removed = diff_skills(upstream, local, snapshot_urls)
+    assert "https://github.com/b/2" in new
+    assert len(removed) == 0
+
+def test_diff_finds_removed_skills():
+    upstream = {
+        "https://github.com/a/1": SkillEntry("https://github.com/a/1", "Skill A", "Section A", "| raw |"),
+    }
+    local = {
+        "https://github.com/a/1": SkillEntry("https://github.com/a/1", "Skill A", "Section A", "| raw |"),
+    }
+    snapshot_urls = {"https://github.com/a/1", "https://github.com/c/3"}
+    new, removed = diff_skills(upstream, local, snapshot_urls)
+    assert len(new) == 0
+    assert "https://github.com/c/3" in removed
+
+def test_diff_no_snapshot_skips_removals():
+    upstream = {"https://github.com/a/1": SkillEntry("https://github.com/a/1", "A", "S", "|")}
+    local = {"https://github.com/a/1": SkillEntry("https://github.com/a/1", "A", "S", "|")}
+    new, removed = diff_skills(upstream, local, snapshot_urls=None)
+    assert len(new) == 0
+    assert len(removed) == 0
