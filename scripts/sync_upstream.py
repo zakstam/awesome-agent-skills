@@ -354,3 +354,116 @@ def fetch_star_counts(
             star_counts[repo] = 0
 
     return star_counts
+
+DEFAULT_UPSTREAM_URL = "https://raw.githubusercontent.com/VoltAgent/awesome-agent-skills/main/README.md"
+
+def fetch_upstream_readme(url: str) -> str:
+    """Fetch the upstream README content."""
+    req = urllib.request.Request(url)
+    req.add_header("User-Agent", "awesome-agent-skills-sync")
+    with urllib.request.urlopen(req) as resp:
+        return resp.read().decode("utf-8")
+
+def _build_star_data(
+    skills: dict[str, SkillEntry],
+    star_counts: dict[str, int],
+) -> dict[str, tuple[int, str, str]]:
+    """Build star_data dict for refresh_top15."""
+    by_repo: dict[str, list[SkillEntry]] = {}
+    for url, entry in skills.items():
+        owner_repo = _extract_owner_repo(url)
+        if owner_repo:
+            by_repo.setdefault(owner_repo, []).append(entry)
+
+    result: dict[str, tuple[int, str, str]] = {}
+    for owner_repo, entries in by_repo.items():
+        stars = star_counts.get(owner_repo, 0)
+        representative = sorted(entries, key=lambda e: e.url)[0]
+        result[representative.url] = (stars, representative.description, owner_repo)
+
+    return result
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Sync skills from upstream VoltAgent repo")
+    parser.add_argument("--dry-run", action="store_true", help="Print report without modifying files")
+    parser.add_argument("--upstream-url", default=DEFAULT_UPSTREAM_URL, help="Override upstream README URL")
+    parser.add_argument("--github-token", default=None, help="GitHub PAT for star counts")
+    args = parser.parse_args()
+
+    token = args.github_token or os.environ.get("GITHUB_TOKEN")
+
+    repo_root = Path(__file__).resolve().parent.parent
+    readme_path = repo_root / "README.md"
+    snapshot_path = repo_root / ".upstream-snapshot.json"
+
+    local_text = readme_path.read_text(encoding="utf-8")
+    local_skills = parse_readme(local_text)
+    print(f"Local skills found: {len(local_skills)}")
+
+    print(f"Fetching upstream from {args.upstream_url}...")
+    try:
+        upstream_text = fetch_upstream_readme(args.upstream_url)
+    except Exception as e:
+        print(f"ERROR: Failed to fetch upstream: {e}", file=sys.stderr)
+        return 1
+    upstream_skills = parse_readme(upstream_text)
+    print(f"Upstream skills found: {len(upstream_skills)}")
+
+    snapshot_urls = load_snapshot(str(snapshot_path))
+
+    new_skills, removed_urls = diff_skills(upstream_skills, local_skills, snapshot_urls)
+
+    modified_text, inserted, unmatched = insert_skills(local_text, new_skills)
+
+    print(f"\n--- Sync Report ---")
+    if inserted:
+        print(f"\nInserted {len(inserted)} new skill(s):")
+        by_section: dict[str, list[SkillEntry]] = {}
+        for entry in inserted:
+            by_section.setdefault(entry.section, []).append(entry)
+        for section, entries in sorted(by_section.items()):
+            print(f"  [{section}]")
+            for e in entries:
+                print(f"    + {e.url}")
+    else:
+        print("\nNo new skills to insert.")
+
+    if unmatched:
+        print(f"\n{len(unmatched)} skill(s) need manual placement:")
+        for entry in unmatched:
+            print(f"  Section: {entry.section}")
+            print(f"    {entry.url} — {entry.description}")
+
+    if removed_urls:
+        print(f"\n{len(removed_urls)} skill(s) removed upstream:")
+        for url in sorted(removed_urls):
+            print(f"  - {url}")
+    elif snapshot_urls is not None:
+        print("\nNo upstream removals detected.")
+
+    if snapshot_urls is None:
+        print("\nFirst run — no snapshot to compare for removals.")
+
+    if token:
+        print("\nFetching star counts for Top 15 refresh...")
+        all_skills_after = parse_readme(modified_text)
+        star_counts = fetch_star_counts(all_skills_after, token)
+        star_data = _build_star_data(all_skills_after, star_counts)
+        modified_text = refresh_top15(modified_text, star_data)
+        print(f"Top 15 table refreshed ({len(star_counts)} repos queried).")
+    else:
+        print("\nNo GitHub token provided — skipping Top 15 refresh.")
+        print("Use --github-token or GITHUB_TOKEN env var to enable.")
+
+    if not args.dry_run:
+        readme_path.write_text(modified_text, encoding="utf-8")
+        save_snapshot(str(snapshot_path), set(upstream_skills.keys()))
+        if inserted or token:
+            print(f"\nFiles updated. Run `git diff README.md` to review changes.")
+    else:
+        print("\n(dry run — no files modified)")
+
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())

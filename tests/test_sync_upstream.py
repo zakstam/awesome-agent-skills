@@ -255,3 +255,15 @@ def test_fetch_star_counts_deduplicates_repos():
         result = fetch_star_counts(skills, token=None)
         assert mock_urlopen.call_count == 1
         assert result["org/repo"] == 42
+
+from sync_upstream import fetch_upstream_readme
+
+def test_fetch_upstream_readme_mock():
+    mock_response = MagicMock()
+    mock_response.read.return_value = b"# Test README"
+    mock_response.__enter__ = lambda s: s
+    mock_response.__exit__ = MagicMock(return_value=False)
+
+    with patch('urllib.request.urlopen', return_value=mock_response):
+        result = fetch_upstream_readme("https://example.com/readme")
+        assert result == "# Test README"
