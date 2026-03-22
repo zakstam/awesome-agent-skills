@@ -410,6 +410,57 @@ def _build_star_data(
 
     return result
 
+def _sync_git_upstream(repo_root: Path, dry_run: bool) -> None:
+    """Fetch upstream git remote and merge with 'ours' strategy to stay current."""
+    import subprocess
+
+    # Check if upstream remote exists
+    result = subprocess.run(
+        ["git", "remote"], capture_output=True, text=True, cwd=repo_root
+    )
+    if "upstream" not in result.stdout.splitlines():
+        print("Adding upstream remote...")
+        subprocess.run(
+            ["git", "remote", "add", "upstream",
+             "https://github.com/VoltAgent/awesome-agent-skills.git"],
+            cwd=repo_root, check=True,
+        )
+
+    print("Fetching upstream git history...")
+    fetch = subprocess.run(
+        ["git", "fetch", "upstream"], capture_output=True, text=True, cwd=repo_root
+    )
+    if fetch.returncode != 0:
+        print(f"WARNING: git fetch upstream failed: {fetch.stderr.strip()}", file=sys.stderr)
+        return
+
+    # Check how many commits behind
+    behind = subprocess.run(
+        ["git", "rev-list", "--count", "HEAD..upstream/main"],
+        capture_output=True, text=True, cwd=repo_root,
+    )
+    if behind.returncode != 0:
+        return
+
+    commits_behind = int(behind.stdout.strip())
+    if commits_behind == 0:
+        print("Git history: up to date with upstream.")
+    else:
+        print(f"Git history: {commits_behind} commit(s) behind upstream.")
+        if not dry_run:
+            merge = subprocess.run(
+                ["git", "merge", "upstream/main", "-s", "ours",
+                 "-m", "Merge upstream (content synced via sync script)"],
+                capture_output=True, text=True, cwd=repo_root,
+            )
+            if merge.returncode == 0:
+                print("Merged upstream with 'ours' strategy — git history updated.")
+            else:
+                print(f"WARNING: git merge failed: {merge.stderr.strip()}", file=sys.stderr)
+        else:
+            print("(dry run — skipping git merge)")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Sync skills from upstream VoltAgent repo")
     parser.add_argument("--dry-run", action="store_true", help="Print report without modifying files")
@@ -423,9 +474,12 @@ def main() -> int:
     readme_path = repo_root / "README.md"
     snapshot_path = repo_root / ".upstream-snapshot.json"
 
+    # Sync git history with upstream
+    _sync_git_upstream(repo_root, args.dry_run)
+
     local_text = readme_path.read_text(encoding="utf-8")
     local_skills = parse_readme(local_text)
-    print(f"Local skills found: {len(local_skills)}")
+    print(f"\nLocal skills found: {len(local_skills)}")
 
     print(f"Fetching upstream from {args.upstream_url}...")
     try:
