@@ -132,3 +132,77 @@ def test_save_and_load_snapshot():
         save_snapshot(path, urls)
         loaded = load_snapshot(path)
         assert loaded == urls
+
+from sync_upstream import insert_skills
+
+def test_insert_into_two_column_section():
+    readme = """<details>
+<summary><h3 style="display:inline">Official Claude Skills </h3></summary>
+
+| Skill | Description |
+|-------|-------------|
+| [anthropics/docx](https://github.com/anthropics/skills/tree/main/skills/docx) | Create Word documents |
+
+</details>"""
+    new_skills = {
+        "https://github.com/anthropics/skills/tree/main/skills/newskill": SkillEntry(
+            url="https://github.com/anthropics/skills/tree/main/skills/newskill",
+            description="A new skill",
+            section="Official Claude Skills",
+            raw_line="| [anthropics/newskill](https://github.com/anthropics/skills/tree/main/skills/newskill) | A new skill |",
+        )
+    }
+    result, inserted, unmatched = insert_skills(readme, new_skills)
+    assert "anthropics/newskill" in result
+    assert len(inserted) == 1
+    assert len(unmatched) == 0
+    lines = result.splitlines()
+    newskill_idx = next(i for i, l in enumerate(lines) if "newskill" in l)
+    details_idx = next(i for i, l in enumerate(lines) if "</details>" in l and i > newskill_idx - 5)
+    assert newskill_idx < details_idx
+
+def test_insert_into_three_column_community_section():
+    readme = """### Community Skills
+
+<details>
+<summary><h3 style="display:inline">Marketing</h3></summary>
+
+| Skill | Stars | Description |
+|-------|-------|-------------|
+| [foo/bar](https://github.com/foo/bar) | ![GitHub Stars](https://img.shields.io/github/stars/foo/bar) | SEO tool |
+
+</details>"""
+    new_skills = {
+        "https://github.com/baz/qux": SkillEntry(
+            url="https://github.com/baz/qux",
+            description="Email tool",
+            section="Community Skills > Marketing",
+            raw_line="ignored",
+        )
+    }
+    result, inserted, unmatched = insert_skills(readme, new_skills)
+    assert "baz/qux" in result
+    assert "img.shields.io/github/stars/baz/qux" in result
+    assert len(inserted) == 1
+
+def test_insert_unmatched_section():
+    readme = """<details>
+<summary><h3 style="display:inline">Official Claude Skills </h3></summary>
+
+| Skill | Description |
+|-------|-------------|
+| [anthropics/docx](https://github.com/anthropics/skills/tree/main/skills/docx) | Create Word documents |
+
+</details>"""
+    new_skills = {
+        "https://github.com/new/team": SkillEntry(
+            url="https://github.com/new/team",
+            description="New team skill",
+            section="Skills by New Team",
+            raw_line="| [new/team](https://github.com/new/team) | New team skill |",
+        )
+    }
+    result, inserted, unmatched = insert_skills(readme, new_skills)
+    assert "new/team" not in result
+    assert len(inserted) == 0
+    assert len(unmatched) == 1

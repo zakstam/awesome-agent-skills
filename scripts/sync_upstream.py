@@ -123,3 +123,142 @@ def save_snapshot(path: str, urls: set[str]) -> None:
     }
     with open(path, "w") as f:
         json.dump(data, f, indent=2)
+
+def _extract_owner_repo(url: str) -> str | None:
+    """Extract 'owner/repo' from a GitHub URL."""
+    m = re.match(r'https?://github\.com/([^/]+/[^/]+)', url)
+    return m.group(1) if m else None
+
+def _build_table_row(entry: SkillEntry, three_column: bool) -> str:
+    """Build a markdown table row for a skill entry."""
+    owner_repo = _extract_owner_repo(entry.url)
+
+    if not three_column and entry.raw_line.startswith('|'):
+        cells = [c.strip() for c in entry.raw_line.split('|') if c.strip()]
+        if len(cells) == 2:
+            return entry.raw_line
+
+    parts = entry.url.rstrip('/').split('/')
+    if 'tree' in parts or 'blob' in parts:
+        org = parts[3]
+        name = parts[-1]
+        display = f"{org}/{name}"
+    else:
+        display = owner_repo or parts[-1]
+
+    link = f"[{display}]({entry.url})"
+    if three_column and owner_repo:
+        stars = f"![GitHub Stars](https://img.shields.io/github/stars/{owner_repo}?style=flat-square&logo=github&label=★)"
+        return f"| {link} | {stars} | {entry.description} |"
+    else:
+        return f"| {link} | {entry.description} |"
+
+def _find_local_sections(text: str) -> dict[str, dict]:
+    """Find all sections in the local README with their line positions and table format."""
+    lines = text.splitlines()
+    sections: dict[str, dict] = {}
+    current_section = None
+    in_community = False
+    in_table = False
+    table_end_line = None
+    three_column = False
+
+    for i, line in enumerate(lines):
+        section_name = extract_section_name(line)
+        if section_name is not None:
+            if current_section and table_end_line is not None:
+                key = current_section.lower()
+                sections[key] = {
+                    "name": current_section,
+                    "table_end": table_end_line,
+                    "three_column": three_column,
+                }
+
+            is_h2 = bool(re.match(r'^##\s', line)) and not re.match(r'^###', line)
+            normalized_section = section_name.strip().lower()
+
+            if normalized_section == "community skills":
+                in_community = True
+                current_section = None
+                in_table = False
+                table_end_line = None
+                three_column = False
+                continue
+
+            if is_h2:
+                in_community = False
+                current_section = None
+                in_table = False
+                table_end_line = None
+                three_column = False
+                continue
+
+            if in_community:
+                current_section = f"Community Skills > {section_name}"
+            else:
+                current_section = section_name
+            in_table = False
+            table_end_line = None
+            three_column = False
+            continue
+
+        if current_section:
+            if re.match(r'\|\s*Skill\s*\|', line):
+                in_table = True
+                three_column = '| Stars |' in line or '| Stars|' in line
+                continue
+            if re.match(r'\|\s*[-:]+', line):
+                continue
+            if in_table and line.startswith('|') and '|' in line[1:]:
+                table_end_line = i + 1
+                continue
+            if in_table and table_end_line is not None:
+                in_table = False
+
+    if current_section and table_end_line is not None:
+        key = current_section.lower()
+        sections[key] = {
+            "name": current_section,
+            "table_end": table_end_line,
+            "three_column": three_column,
+        }
+
+    return sections
+
+def insert_skills(
+    readme_text: str,
+    new_skills: dict[str, SkillEntry],
+) -> tuple[str, list[SkillEntry], list[SkillEntry]]:
+    """Insert new skills into the README text."""
+    if not new_skills:
+        return readme_text, [], []
+
+    sections = _find_local_sections(readme_text)
+    lines = readme_text.splitlines()
+
+    inserted: list[SkillEntry] = []
+    unmatched: list[SkillEntry] = []
+
+    by_section: dict[str, list[SkillEntry]] = {}
+    for entry in new_skills.values():
+        by_section.setdefault(entry.section, []).append(entry)
+
+    insertions: list[tuple[int, str]] = []
+
+    for section_name, entries in by_section.items():
+        key = section_name.lower()
+        if key not in sections:
+            unmatched.extend(entries)
+            continue
+        sec = sections[key]
+        for entry in entries:
+            row = _build_table_row(entry, sec["three_column"])
+            insertions.append((sec["table_end"], row))
+            inserted.append(entry)
+            sec["table_end"] += 1
+
+    insertions.sort(key=lambda x: x[0], reverse=True)
+    for line_idx, row_text in insertions:
+        lines.insert(line_idx, row_text)
+
+    return '\n'.join(lines), inserted, unmatched
