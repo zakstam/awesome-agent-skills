@@ -262,3 +262,54 @@ def insert_skills(
         lines.insert(line_idx, row_text)
 
     return '\n'.join(lines), inserted, unmatched
+
+def refresh_top15(
+    readme_text: str,
+    star_data: dict[str, tuple[int, str, str]],
+) -> str:
+    """Regenerate the Top 15 table in the README.
+    star_data: url -> (star_count, description, owner_repo)
+    """
+    ranked = sorted(star_data.items(), key=lambda x: x[1][0], reverse=True)[:15]
+
+    header = "| # | Skill | Stars | Description |"
+    separator = "|---|-------|-------|-------------|"
+    rows = [header, separator]
+    for i, (url, (stars, description, owner_repo)) in enumerate(ranked, 1):
+        parts = url.rstrip('/').split('/')
+        if 'tree' in parts or 'blob' in parts:
+            org = parts[3]
+            name = parts[-1]
+            display = f"{org}/{name}"
+        else:
+            display = owner_repo
+        link = f"[{display}]({url})"
+        badge = f"![GitHub Stars](https://img.shields.io/github/stars/{owner_repo}?style=flat-square&logo=github&label=★)"
+        rows.append(f"| {i} | {link} | {badge} | {description} |")
+
+    lines = readme_text.splitlines()
+    start = None
+    end = None
+    for i, line in enumerate(lines):
+        if re.match(r'^##\s+.*Top 15', line):
+            start = i
+        elif start is not None and start != i:
+            if line.startswith('| #') or line.startswith('|--') or line.startswith('|---'):
+                if end is None or i > end:
+                    end = i
+            elif line.startswith('| ') and re.match(r'\|\s*\d+\s*\|', line):
+                end = i
+            elif end is not None and not line.startswith('|'):
+                break
+
+    if start is not None and end is not None:
+        table_start = None
+        for i in range(start + 1, len(lines)):
+            if lines[i].startswith('|'):
+                table_start = i
+                break
+        if table_start is not None:
+            result_lines = lines[:table_start] + rows + lines[end + 1:]
+            return '\n'.join(result_lines)
+
+    return readme_text

@@ -206,3 +206,29 @@ def test_insert_unmatched_section():
     assert "new/team" not in result
     assert len(inserted) == 0
     assert len(unmatched) == 1
+
+from sync_upstream import refresh_top15
+
+def test_refresh_top15_replaces_table():
+    readme = """## ⭐ Top 15 Most Popular Skills
+
+| # | Skill | Stars | Description |
+|---|-------|-------|-------------|
+| 1 | [old/skill](https://github.com/old/skill) | ![GitHub Stars](https://img.shields.io/github/stars/old/skill?style=flat-square&logo=github&label=★) | Old skill |
+
+
+## Table of Contents"""
+
+    star_data = {
+        "https://github.com/top/one": (1000, "Top one skill", "top/one"),
+        "https://github.com/top/two": (500, "Top two skill", "top/two"),
+    }
+    result = refresh_top15(readme, star_data)
+    assert "old/skill" not in result
+    assert "top/one" in result
+    assert "top/two" in result
+    assert "## Table of Contents" in result
+    lines = [l for l in result.splitlines() if l.startswith('| ')]
+    data_lines = [l for l in lines if not l.startswith('| #') and not l.startswith('|--')]
+    assert "| 1 |" in data_lines[0]
+    assert "top/one" in data_lines[0]
