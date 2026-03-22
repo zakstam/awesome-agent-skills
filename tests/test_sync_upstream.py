@@ -25,3 +25,58 @@ def test_extract_section_from_h2_plain():
 def test_no_section_in_regular_line():
     line = '| [foo](https://github.com/foo/bar) | description |'
     assert extract_section_name(line) is None
+
+
+from sync_upstream import SkillEntry, parse_readme
+
+def test_parse_two_column_table():
+    readme = """<details>
+<summary><h3 style="display:inline">Official Claude Skills </h3></summary>
+
+| Skill | Description |
+|-------|-------------|
+| [anthropics/docx](https://github.com/anthropics/skills/tree/main/skills/docx) | Create Word documents |
+
+</details>"""
+    skills = parse_readme(readme)
+    url = "https://github.com/anthropics/skills/tree/main/skills/docx"
+    assert url in skills
+    assert skills[url].description == "Create Word documents"
+    assert skills[url].section == "Official Claude Skills"
+
+def test_parse_three_column_table():
+    readme = """### Community Skills
+
+<details>
+<summary><h3 style="display:inline">Marketing</h3></summary>
+
+| Skill | Stars | Description |
+|-------|-------|-------------|
+| [foo/bar](https://github.com/foo/bar) | ![GitHub Stars](https://img.shields.io/github/stars/foo/bar) | SEO tool |
+
+</details>"""
+    skills = parse_readme(readme)
+    url = "https://github.com/foo/bar"
+    assert url in skills
+    assert skills[url].description == "SEO tool"
+    assert skills[url].section == "Community Skills > Marketing"
+
+def test_skip_top15_table():
+    readme = """## ⭐ Top 15 Most Popular Skills
+
+| # | Skill | Stars | Description |
+|---|-------|-------|-------------|
+| 1 | [foo/bar](https://github.com/foo/bar) | ![stars] | Top skill |
+
+## Next Section"""
+    skills = parse_readme(readme)
+    assert len(skills) == 0
+
+def test_skip_compatibility_table():
+    readme = """## Skills Paths for Other AI Coding Assistants
+
+| Tool | Project Path | Global Path | Official Docs |
+|------|-------------|-------------|---------------|
+| Claude Code | `.claude/skills/` | `~/.claude/skills/` | [Docs](https://docs.anthropic.com) |"""
+    skills = parse_readme(readme)
+    assert len(skills) == 0
