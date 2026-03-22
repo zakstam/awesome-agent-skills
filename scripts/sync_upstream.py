@@ -43,8 +43,13 @@ def parse_readme(text: str) -> dict[str, SkillEntry]:
     in_community = False
     skip_current = False
 
-    skill_link_re = re.compile(
+    # Match table rows: | [name](url) | desc | or | # | [name](url) | stars | desc |
+    table_link_re = re.compile(
         r'\|\s*(?:\d+\s*\|)?\s*\[([^\]]+)\]\((https?://(?:github\.com|www\.notion\.so)[^\)]+)\)'
+    )
+    # Match bullet list entries: - **[name](url)** - description (upstream format)
+    bullet_link_re = re.compile(
+        r'^-\s+\*?\*?\[([^\]]+)\]\((https?://(?:github\.com|www\.notion\.so)[^\)]+)\)\*?\*?\s*[-–—]\s*(.+)$'
     )
 
     for line in text.splitlines():
@@ -74,14 +79,29 @@ def parse_readme(text: str) -> dict[str, SkillEntry]:
         if skip_current or not current_section:
             continue
 
+        # Skip table headers and separators
         if re.match(r'\|\s*[-:]+\s*\|', line) or re.match(r'\|\s*Skill\s*\|', line):
             continue
 
-        m = skill_link_re.search(line)
+        # Try table row format (our local format)
+        m = table_link_re.search(line)
         if m:
             url = m.group(2)
             cells = [c.strip() for c in line.split('|') if c.strip()]
             description = cells[-1] if cells else ""
+            skills[url] = SkillEntry(
+                url=url,
+                description=description,
+                section=current_section,
+                raw_line=line,
+            )
+            continue
+
+        # Try bullet list format (upstream format)
+        m = bullet_link_re.match(line)
+        if m:
+            url = m.group(2)
+            description = m.group(3).strip()
             skills[url] = SkillEntry(
                 url=url,
                 description=description,

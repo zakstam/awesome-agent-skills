@@ -61,6 +61,28 @@ def test_parse_three_column_table():
     assert skills[url].description == "SEO tool"
     assert skills[url].section == "Community Skills > Marketing"
 
+def test_parse_bullet_list_format():
+    """Upstream uses bullet lists instead of tables."""
+    readme = """<details open>
+<summary><h3 style="display:inline">Official Claude Skills</h3></summary>
+
+- **[anthropics/docx](https://github.com/anthropics/skills/tree/main/skills/docx)** - Create Word documents
+- **[anthropics/pdf](https://github.com/anthropics/skills/tree/main/skills/pdf)** - Extract text and create PDFs
+
+</details>
+
+### Skills by Composio Team
+- **[ComposioHQ/skills](https://github.com/ComposioHQ/skills)** - Connect AI agents to 1000+ apps"""
+    skills = parse_readme(readme)
+    assert len(skills) == 3
+    url = "https://github.com/anthropics/skills/tree/main/skills/docx"
+    assert url in skills
+    assert skills[url].description == "Create Word documents"
+    assert skills[url].section == "Official Claude Skills"
+    composio_url = "https://github.com/ComposioHQ/skills"
+    assert composio_url in skills
+    assert skills[composio_url].section == "Skills by Composio Team"
+
 def test_skip_top15_table():
     readme = """## ⭐ Top 15 Most Popular Skills
 
