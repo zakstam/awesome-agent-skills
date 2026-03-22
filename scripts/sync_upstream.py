@@ -150,6 +150,8 @@ def _build_table_row(entry: SkillEntry, three_column: bool) -> str:
     if three_column and owner_repo:
         stars = f"![GitHub Stars](https://img.shields.io/github/stars/{owner_repo}?style=flat-square&logo=github&label=★)"
         return f"| {link} | {stars} | {entry.description} |"
+    elif three_column:
+        return f"| {link} | — | {entry.description} |"
     else:
         return f"| {link} | {entry.description} |"
 
@@ -208,6 +210,8 @@ def _find_local_sections(text: str) -> dict[str, dict]:
                 three_column = '| Stars |' in line or '| Stars|' in line
                 continue
             if re.match(r'\|\s*[-:]+', line):
+                if in_table and table_end_line is None:
+                    table_end_line = i + 1
                 continue
             if in_table and line.startswith('|') and '|' in line[1:]:
                 table_end_line = i + 1
@@ -261,7 +265,9 @@ def insert_skills(
     for line_idx, row_text in insertions:
         lines.insert(line_idx, row_text)
 
-    return '\n'.join(lines), inserted, unmatched
+    trailing_nl = '\n' if readme_text.endswith('\n') else ''
+    return '\n'.join(lines) + trailing_nl, inserted, unmatched
+
 
 def refresh_top15(
     readme_text: str,
@@ -310,7 +316,8 @@ def refresh_top15(
                 break
         if table_start is not None:
             result_lines = lines[:table_start] + rows + lines[end + 1:]
-            return '\n'.join(result_lines)
+            trailing_nl = '\n' if readme_text.endswith('\n') else ''
+            return '\n'.join(result_lines) + trailing_nl
 
     return readme_text
 
