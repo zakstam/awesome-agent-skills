@@ -313,3 +313,44 @@ def refresh_top15(
             return '\n'.join(result_lines)
 
     return readme_text
+
+def fetch_star_counts(
+    skills: dict[str, SkillEntry],
+    token: str | None,
+) -> dict[str, int]:
+    """Fetch star counts for all unique repos. Returns dict of owner/repo -> star_count."""
+    repos: set[str] = set()
+    for url in skills:
+        owner_repo = _extract_owner_repo(url)
+        if owner_repo:
+            repos.add(owner_repo)
+
+    star_counts: dict[str, int] = {}
+
+    for repo in sorted(repos):
+        api_url = f"https://api.github.com/repos/{repo}"
+        req = urllib.request.Request(api_url)
+        req.add_header("Accept", "application/vnd.github.v3+json")
+        req.add_header("User-Agent", "awesome-agent-skills-sync")
+        if token:
+            req.add_header("Authorization", f"token {token}")
+
+        try:
+            with urllib.request.urlopen(req) as resp:
+                data = json.loads(resp.read())
+                star_counts[repo] = data.get("stargazers_count", 0)
+        except urllib.error.HTTPError as e:
+            if e.code == 403:
+                print(f"WARNING: Rate limited by GitHub API. {len(repos) - len(star_counts)} repos not queried.", file=sys.stderr)
+                break
+            elif e.code == 404:
+                print(f"WARNING: Repo not found: {repo}", file=sys.stderr)
+                star_counts[repo] = 0
+            else:
+                print(f"WARNING: API error for {repo}: {e.code}", file=sys.stderr)
+                star_counts[repo] = 0
+        except Exception as e:
+            print(f"WARNING: Failed to fetch {repo}: {e}", file=sys.stderr)
+            star_counts[repo] = 0
+
+    return star_counts

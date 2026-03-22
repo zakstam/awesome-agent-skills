@@ -232,3 +232,26 @@ def test_refresh_top15_replaces_table():
     data_lines = [l for l in lines if not l.startswith('| #') and not l.startswith('|--')]
     assert "| 1 |" in data_lines[0]
     assert "top/one" in data_lines[0]
+
+from unittest.mock import patch, MagicMock
+from sync_upstream import fetch_star_counts
+
+def test_fetch_star_counts_deduplicates_repos():
+    """Two skills from same repo should produce one API call."""
+    skills = {
+        "https://github.com/org/repo/tree/main/skills/a": SkillEntry(
+            "https://github.com/org/repo/tree/main/skills/a", "Skill A", "Section", "|"
+        ),
+        "https://github.com/org/repo/tree/main/skills/b": SkillEntry(
+            "https://github.com/org/repo/tree/main/skills/b", "Skill B", "Section", "|"
+        ),
+    }
+    mock_response = MagicMock()
+    mock_response.read.return_value = b'{"stargazers_count": 42}'
+    mock_response.__enter__ = lambda s: s
+    mock_response.__exit__ = MagicMock(return_value=False)
+
+    with patch('urllib.request.urlopen', return_value=mock_response) as mock_urlopen:
+        result = fetch_star_counts(skills, token=None)
+        assert mock_urlopen.call_count == 1
+        assert result["org/repo"] == 42
