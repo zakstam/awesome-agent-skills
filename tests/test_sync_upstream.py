@@ -115,3 +115,19 @@ def test_diff_no_snapshot_skips_removals():
     new, removed = diff_skills(upstream, local, snapshot_urls=None)
     assert len(new) == 0
     assert len(removed) == 0
+
+
+import tempfile
+from sync_upstream import load_snapshot, save_snapshot
+
+def test_load_snapshot_missing_file():
+    result = load_snapshot("/nonexistent/path.json")
+    assert result is None
+
+def test_save_and_load_snapshot():
+    with tempfile.TemporaryDirectory() as tmp:
+        path = os.path.join(tmp, "snapshot.json")
+        urls = {"https://github.com/a/1", "https://github.com/b/2"}
+        save_snapshot(path, urls)
+        loaded = load_snapshot(path)
+        assert loaded == urls

@@ -103,3 +103,22 @@ def diff_skills(
     else:
         removed = snapshot_urls - set(upstream.keys())
     return new, removed
+
+
+def load_snapshot(path: str) -> set[str] | None:
+    """Load snapshot URLs from a JSON file. Returns None if file doesn't exist."""
+    try:
+        with open(path) as f:
+            data = json.load(f)
+        return set(data["urls"])
+    except (FileNotFoundError, KeyError, json.JSONDecodeError):
+        return None
+
+def save_snapshot(path: str, urls: set[str]) -> None:
+    """Save snapshot URLs to a JSON file."""
+    data = {
+        "urls": sorted(urls),
+        "fetched_at": datetime.now(timezone.utc).isoformat(),
+    }
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2)
