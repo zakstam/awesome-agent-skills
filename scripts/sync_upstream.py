@@ -35,6 +35,7 @@ SKIP_SECTIONS = {
     "skills paths for other ai coding assistants",
 }
 
+
 def parse_readme(text: str) -> dict[str, SkillEntry]:
     """Parse a README and return a dict of url -> SkillEntry."""
     skills: dict[str, SkillEntry] = {}
@@ -111,7 +112,7 @@ def load_snapshot(path: str) -> set[str] | None:
         with open(path) as f:
             data = json.load(f)
         return set(data["urls"])
-    except (FileNotFoundError, KeyError, json.JSONDecodeError):
+    except (FileNotFoundError, KeyError, json.JSONDecodeError, TypeError):
         return None
 
 def save_snapshot(path: str, urls: set[str]) -> None:

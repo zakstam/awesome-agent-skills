@@ -95,6 +95,7 @@ def test_diff_finds_new_skills():
     snapshot_urls = set()
     new, removed = diff_skills(upstream, local, snapshot_urls)
     assert "https://github.com/b/2" in new
+    assert "https://github.com/a/1" not in new
     assert len(removed) == 0
 
 def test_diff_finds_removed_skills():
