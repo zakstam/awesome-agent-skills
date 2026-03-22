@@ -1,4 +1,4 @@
-> Originally forked from [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills) — a community-maintained collection of agent skills by the VoltAgent team.
+> Originally forked from [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills). This fork provides a less cluttered, easier to navigate version of the collection — reorganized with collapsible sections, a Top 15 ranking, and a streamlined table format.
 
 
 <div align="center">
@@ -140,9 +140,13 @@ Agent skills can include prompt injections, tool poisoning, hidden malware paylo
 | Skill | Description |
 |-------|-------------|
 | [google-gemini/gemini-skills](https://github.com/google-gemini/gemini-skills) | A library of skills for the Gemini API, SDK and model interactions. |
+| [google-gemini/gemini-api-dev](https://github.com/google-gemini/gemini-skills/tree/main/skills/gemini-api-dev) | Best practices for developing Gemini-powered apps using the Gemini API |
 
+| [google-gemini/vertex-ai-api-dev](https://github.com/google-gemini/gemini-skills/tree/main/skills/vertex-ai-api-dev) | Developing Gemini-powered apps on Google Cloud Vertex AI using the Gen AI SDK |
 </details>
+| [google-gemini/gemini-live-api-dev](https://github.com/google-gemini/gemini-skills/tree/main/skills/gemini-live-api-dev) | Building real-time bidirectional streaming apps with the Gemini Live API |
 
+| [google-gemini/gemini-interactions-api](https://github.com/google-gemini/gemini-skills/tree/main/skills/gemini-interactions-api) | Building apps with the Gemini Interactions API for text, chat, streaming, and image generation |
 <details>
 <summary><h3 style="display:inline">Skills by Stripe Team</h3></summary>
 
@@ -176,30 +180,49 @@ Official AI agent skills from the Expo team for building, deploying, and debuggi
 | [expo/expo-app-design](https://github.com/expo/skills/tree/main/plugins/expo-app-design) | Design and build Expo applications |
 | [expo/expo-deployment](https://github.com/expo/skills/tree/main/plugins/expo-deployment) | Deploy Expo apps to production |
 | [expo/upgrading-expo](https://github.com/expo/skills/tree/main/plugins/upgrading-expo) | Upgrade Expo SDK versions |
+| [expo/building-native-ui](https://github.com/expo/skills/tree/main/plugins/expo/skills/building-native-ui) | Build apps with Expo Router, styling, components, navigation, and animations |
 
+| [expo/expo-api-routes](https://github.com/expo/skills/tree/main/plugins/expo/skills/expo-api-routes) | Create API routes in Expo Router with EAS Hosting |
 </details>
+| [expo/expo-cicd-workflows](https://github.com/expo/skills/tree/main/plugins/expo/skills/expo-cicd-workflows) | CI/CD workflows for Expo projects |
 
+| [expo/expo-deployment](https://github.com/expo/skills/tree/main/plugins/expo/skills/expo-deployment) | Deploy Expo apps to production |
 <details>
+| [expo/expo-dev-client](https://github.com/expo/skills/tree/main/plugins/expo/skills/expo-dev-client) | Build and distribute Expo dev clients locally or via TestFlight |
 <summary><h3 style="display:inline">Skills by Better Auth Team</h3></summary>
+| [expo/expo-tailwind-setup](https://github.com/expo/skills/tree/main/plugins/expo/skills/expo-tailwind-setup) | Set up Tailwind CSS v4 in Expo with NativeWind v5 |
 
+| [expo/expo-ui-jetpack-compose](https://github.com/expo/skills/tree/main/plugins/expo/skills/expo-ui-jetpack-compose) | Jetpack Compose UI components for Expo |
 ![GitHub Stars](https://img.shields.io/github/stars/better-auth/skills?style=flat-square&logo=github&label=★)
+| [expo/expo-ui-swift-ui](https://github.com/expo/skills/tree/main/plugins/expo/skills/expo-ui-swift-ui) | SwiftUI components for Expo |
 | Skill | Description |
+| [expo/native-data-fetching](https://github.com/expo/skills/tree/main/plugins/expo/skills/native-data-fetching) | Network requests, API calls, caching, and offline support |
 |-------|-------------|
+| [expo/upgrading-expo](https://github.com/expo/skills/tree/main/plugins/expo/skills/upgrading-expo) | Upgrade Expo SDK versions |
 | [better-auth/best-practices](https://github.com/better-auth/skills/tree/main/better-auth/best-practices) | Best practices for Better Auth integration |
+| [expo/use-dom](https://github.com/expo/skills/tree/main/plugins/expo/skills/use-dom) | Run web code in a webview on native using DOM components |
 | [better-auth/commands](https://github.com/better-auth/skills/tree/main/better-auth/commands) | Better Auth CLI commands |
 | [better-auth/create-auth](https://github.com/better-auth/skills/tree/main/better-auth/create-auth) | Create authentication setup with Better Auth |
+| [better-auth/explain-error.md](https://github.com/better-auth/skills/blob/main/better-auth/commands/explain-error.md) | Explain Better Auth error messages |
 
+| [better-auth/providers.md](https://github.com/better-auth/skills/blob/main/better-auth/commands/providers.md) | Better Auth authentication providers |
 </details>
+| [better-auth/emailAndPassword](https://github.com/better-auth/skills/tree/main/better-auth/emailAndPassword) | Email and password authentication with Better Auth |
 
+| [better-auth/organization](https://github.com/better-auth/skills/tree/main/better-auth/organization) | Organization management with Better Auth |
 <details>
+| [better-auth/twoFactor](https://github.com/better-auth/skills/tree/main/better-auth/twoFactor) | Two-factor authentication with Better Auth |
 <summary><h3 style="display:inline">Skills by Tinybird Team</h3></summary>
 
 ![GitHub Stars](https://img.shields.io/github/stars/tinybirdco/tinybird-agent-skills?style=flat-square&logo=github&label=★)
 | Skill | Description |
 |-------|-------------|
 | [tinybirdco/tinybird-best-practices](https://github.com/tinybirdco/tinybird-agent-skills/tree/main/skills/tinybird-best-practices) | Tinybird project guidelines for datasources, pipes, endpoints, and SQL |
+| [tinybirdco/tinybird-cli-guidelines](https://github.com/tinybirdco/tinybird-agent-skills/tree/main/skills/tinybird-cli-guidelines) | Tinybird CLI usage guidelines and commands |
 
+| [tinybirdco/tinybird-python-sdk-guidelines](https://github.com/tinybirdco/tinybird-agent-skills/tree/main/skills/tinybird-python-sdk-guidelines) | Tinybird Python SDK usage guidelines |
 </details>
+| [tinybirdco/tinybird-typescript-sdk-guidelines](https://github.com/tinybirdco/tinybird-agent-skills/tree/main/skills/tinybird-typescript-sdk-guidelines) | Tinybird TypeScript SDK usage guidelines |
 
 <details>
 <summary><h3 style="display:inline">Skills by HashiCorp Team for Terraform</h3></summary>
@@ -232,17 +255,26 @@ Official AI agent skills from the Expo team for building, deploying, and debuggi
 |-------|-------|-------------|
 | [firecrawl/firecrawl-cli](https://github.com/firecrawl/cli/tree/main/skills/firecrawl-cli) | ![GitHub Stars](https://img.shields.io/github/stars/firecrawl/cli?style=flat-square&logo=github&label=★) | Scrape, crawl, search, and map the web via CLI |
 | [firecrawl/firecrawl-claude-plugin](https://github.com/firecrawl/firecrawl-claude-plugin) | ![GitHub Stars](https://img.shields.io/github/stars/firecrawl/firecrawl-claude-plugin?style=flat-square&logo=github&label=★) | Claude Code plugin for web scraping and search |
+| [firecrawl/firecrawl-agent](https://github.com/firecrawl/cli/tree/main/skills/firecrawl-agent) | ![GitHub Stars](https://img.shields.io/github/stars/firecrawl/cli?style=flat-square&logo=github&label=★) | AI agent for autonomous web scraping and data extraction |
 
+| [firecrawl/firecrawl-browser](https://github.com/firecrawl/cli/tree/main/skills/firecrawl-browser) | ![GitHub Stars](https://img.shields.io/github/stars/firecrawl/cli?style=flat-square&logo=github&label=★) | Browser-based web scraping and interaction |
 </details>
+| [firecrawl/firecrawl-crawl](https://github.com/firecrawl/cli/tree/main/skills/firecrawl-crawl) | ![GitHub Stars](https://img.shields.io/github/stars/firecrawl/cli?style=flat-square&logo=github&label=★) | Crawl websites and extract structured data |
 
+| [firecrawl/firecrawl-download](https://github.com/firecrawl/cli/tree/main/skills/firecrawl-download) | ![GitHub Stars](https://img.shields.io/github/stars/firecrawl/cli?style=flat-square&logo=github&label=★) | Download web content and files |
 <details>
+| [firecrawl/firecrawl-map](https://github.com/firecrawl/cli/tree/main/skills/firecrawl-map) | ![GitHub Stars](https://img.shields.io/github/stars/firecrawl/cli?style=flat-square&logo=github&label=★) | Map website structure and sitemaps |
 <summary><h3 style="display:inline">Skills by Neon</h3></summary>
+| [firecrawl/firecrawl-scrape](https://github.com/firecrawl/cli/tree/main/skills/firecrawl-scrape) | ![GitHub Stars](https://img.shields.io/github/stars/firecrawl/cli?style=flat-square&logo=github&label=★) | Scrape web pages and extract content |
 
+| [firecrawl/firecrawl-search](https://github.com/firecrawl/cli/tree/main/skills/firecrawl-search) | ![GitHub Stars](https://img.shields.io/github/stars/firecrawl/cli?style=flat-square&logo=github&label=★) | Search the web and extract results |
 ![GitHub Stars](https://img.shields.io/github/stars/neondatabase/agent-skills?style=flat-square&logo=github&label=★)
 | Skill | Description |
 |-------|-------------|
 | [neondatabase/using-neon](https://github.com/neondatabase/agent-skills/tree/main/skills/neon-postgres) | Best practices for Neon Serverless Postgres |
+| [neondatabase/claimable-postgres](https://github.com/neondatabase/agent-skills/tree/main/skills/claimable-postgres) | Claimable Postgres database provisioning with Neon |
 
+| [neondatabase/neon-postgres-egress-optimizer](https://github.com/neondatabase/agent-skills/tree/main/skills/neon-postgres-egress-optimizer) | Optimize Neon Postgres egress and data transfer |
 </details>
 
 <details>
@@ -428,11 +460,17 @@ Official AI agent skills from the Hugging Face team for ML workflows.
 | [huggingface/hugging-face-paper-publisher](https://github.com/huggingface/skills/tree/main/skills/hugging-face-paper-publisher) | Publish papers on HF Hub with model/dataset links |
 | [huggingface/hugging-face-tool-builder](https://github.com/huggingface/skills/tree/main/skills/hugging-face-tool-builder) | Build reusable scripts for HF API operations |
 | [huggingface/hugging-face-trackio](https://github.com/huggingface/skills/tree/main/skills/hugging-face-trackio) | Track ML experiments with real-time dashboards |
+| [huggingface/hf-cli](https://github.com/huggingface/skills/tree/main/skills/hf-cli) | HF CLI tool for Hub operations |
 
+| [huggingface/hugging-face-dataset-viewer](https://github.com/huggingface/skills/tree/main/skills/hugging-face-dataset-viewer) | Browse and query HF datasets with the Dataset Viewer API |
 </details>
+| [huggingface/hugging-face-paper-pages](https://github.com/huggingface/skills/tree/main/skills/hugging-face-paper-pages) | Create and manage paper pages on HF Hub |
 
+| [huggingface/hugging-face-vision-trainer](https://github.com/huggingface/skills/tree/main/skills/hugging-face-vision-trainer) | Train vision models on HF infrastructure |
 <details>
+| [huggingface/huggingface-gradio](https://github.com/huggingface/skills/tree/main/skills/huggingface-gradio) | Build Gradio apps and deploy to HF Spaces |
 <summary><h3 style="display:inline">Security Skills by Trail of Bits Team </h3></summary>
+| [huggingface/transformers.js](https://github.com/huggingface/skills/tree/main/skills/transformers.js) | Run ML models in the browser with Transformers.js |
 
 <img src="https://img.shields.io/github/stars/trailofbits/skills?style=flat-square&logo=github&label=★" alt="GitHub Stars" />
 
@@ -1043,6 +1081,7 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 | [Xquik-dev/x-twitter-scraper](https://github.com/Xquik-dev/x-twitter-scraper) | ![GitHub Stars](https://img.shields.io/github/stars/Xquik-dev/x-twitter-scraper?style=flat-square&logo=github&label=★) | X/Twitter data platform: extractions, monitoring, draws, MCP server |
 | [SHADOWPR0/beautiful_prose](https://github.com/SHADOWPR0/beautiful_prose) | ![GitHub Stars](https://img.shields.io/github/stars/SHADOWPR0/beautiful_prose?style=flat-square&logo=github&label=★) | Hard-edged writing style contract for timeless, forceful English prose without AI tics |
 | [blader/humanizer](https://github.com/blader/humanizer) | ![GitHub Stars](https://img.shields.io/github/stars/blader/humanizer?style=flat-square&logo=github&label=★) | Remove signs of AI-generated writing from text, making it sound more natural and human |
+| [Xquik-dev/tweetclaw](https://github.com/Xquik-dev/tweetclaw) | ![GitHub Stars](https://img.shields.io/github/stars/Xquik-dev/tweetclaw?style=flat-square&logo=github&label=★) | 40+ X/Twitter actions: post, extract, monitor, compose |
 
 </details>
 
@@ -1079,6 +1118,7 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 | [ReScienceLab/opc-skills](https://github.com/ReScienceLab/opc-skills) | ![GitHub Stars](https://img.shields.io/github/stars/ReScienceLab/opc-skills?style=flat-square&logo=github&label=★) | Agent skills for solopreneurs with SEO, geo, and LLM tools |
 | [SeanZoR/claude-speed-reader](https://github.com/SeanZoR/claude-speed-reader) | ![GitHub Stars](https://img.shields.io/github/stars/SeanZoR/claude-speed-reader?style=flat-square&logo=github&label=★) | Speed read Claude's responses at 600+ WPM using RSVP with Spritz-style ORP highlighting |
 | [Charlie85270/Dorothy](https://github.com/Charlie85270/Dorothy) | ![GitHub Stars](https://img.shields.io/github/stars/Charlie85270/Dorothy?style=flat-square&logo=github&label=★) | Orchestrate multiple AI CLI agents with automations and MCP servers |
+| [Digidai/product-manager-skills](https://github.com/Digidai/product-manager-skills) | ![GitHub Stars](https://img.shields.io/github/stars/Digidai/product-manager-skills?style=flat-square&logo=github&label=★) | Senior PM agent with 30+ frameworks and SaaS metrics |
 
 </details>
 
@@ -1146,7 +1186,9 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 | [wrsmith108/varlock-claude-skill](https://github.com/wrsmith108/varlock-claude-skill) | ![GitHub Stars](https://img.shields.io/github/stars/wrsmith108/varlock-claude-skill?style=flat-square&logo=github&label=★) | Secure environment variable management ensuring secrets are never exposed in Claude sessions, terminals, logs, or git commits |
 | [Skill_Seekers](https://github.com/yusufkaraaslan/Skill_Seekers) | ![GitHub Stars](https://img.shields.io/github/stars/yusufkaraaslan/Skill_Seekers?style=flat-square&logo=github&label=★) | Automatically convert documentation websites, GitHub repositories, and PDFs into Claude AI skills in minutes |
 | [NoizAI/skills](https://github.com/NoizAI/skills) | ![GitHub Stars](https://img.shields.io/github/stars/NoizAI/skills?style=flat-square&logo=github&label=★) | Human-like TTS workflows with local/cloud APIs and app delivery |
+| [Kevin7Qi/codex-collab](https://github.com/Kevin7Qi/codex-collab) | ![GitHub Stars](https://img.shields.io/github/stars/Kevin7Qi/codex-collab?style=flat-square&logo=github&label=★) | Collaborate with Codex from Claude Code |
 
+| [ethos-link/rails-conventions](https://github.com/ethos-link/rails-conventions) | ![GitHub Stars](https://img.shields.io/github/stars/ethos-link/rails-conventions?style=flat-square&logo=github&label=★) | Rails 8 conventions for consistent production code changes |
 </details>
 
 <details>
@@ -1192,8 +1234,11 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 | [zw008/VMware-AIops](https://github.com/zw008/VMware-AIops) | ![GitHub Stars](https://img.shields.io/github/stars/zw008/VMware-AIops?style=flat-square&logo=github&label=★) | AI-powered VMware vCenter/ESXi monitoring and operations: inventory queries, health/alarms, VM lifecycle (create, delete, snapshot, clone, migrate), vSAN management, Aria Operations analytics, and scheduled log scanning. Supports Claude Code, Gemini CLI, Codex, Aider, Trae, Kimi, and MCP. |
 | [video-db/skills](https://github.com/video-db/skills) | ![GitHub Stars](https://img.shields.io/github/stars/video-db/skills?style=flat-square&logo=github&label=★) | Realtime and batch video workflows: capture screen/audio, ingest URLs/YouTube/RTSP, transcribe, index, search, generate subtitles, edit timelines, and stream HLS output |
 | [materials-simulation-skills](https://github.com/HeshamFS/materials-simulation-skills) | ![GitHub Stars](https://img.shields.io/github/stars/HeshamFS/materials-simulation-skills?style=flat-square&logo=github&label=★) | Agent skills for computational materials science: numerical stability, time-stepping, linear solvers, mesh generation, simulation validation, parameter optimization, and post-processing |
+| [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | ![GitHub Stars](https://img.shields.io/github/stars/wanshuiyin/Auto-claude-code-research-in-sleep?style=flat-square&logo=github&label=★) | Autonomous ML research with cross-model review loops and GPU deployment |
 
+| [takechanman1228/claude-ecom](https://github.com/takechanman1228/claude-ecom) | ![GitHub Stars](https://img.shields.io/github/stars/takechanman1228/claude-ecom?style=flat-square&logo=github&label=★) | Ecommerce CSV to business review with KPI decomposition |
 </details>
+| [helius-labs/helius-skills](https://github.com/helius-labs/core-ai/tree/main/helius-skills) | ![GitHub Stars](https://img.shields.io/github/stars/helius-labs/core-ai?style=flat-square&logo=github&label=★) | Ship Solana apps end-to-end; transaction sending, asset queries, real-time streaming, token swaps, prediction markets, browser wallets, and deep research into protocol internals all powered by Helius APIs, DFlow trading, and Phantom wallet integrations |
 
 <details>
 <summary><h3 style="display:inline">n8n Automation </h3></summary>
