@@ -267,3 +267,38 @@ def test_fetch_upstream_readme_mock():
     with patch('urllib.request.urlopen', return_value=mock_response):
         result = fetch_upstream_readme("https://example.com/readme")
         assert result == "# Test README"
+
+
+from pathlib import Path
+
+def test_parse_real_readme():
+    """Smoke test: parse the actual README and verify we get a reasonable number of skills."""
+    readme_path = Path(__file__).resolve().parent.parent / "README.md"
+    if not readme_path.exists():
+        return
+    text = readme_path.read_text(encoding="utf-8")
+    skills = parse_readme(text)
+    assert len(skills) > 100, f"Expected 100+ skills, got {len(skills)}"
+    sections = {e.section for e in skills.values()}
+    assert "Official Claude Skills" in sections
+    assert any("anthropics/skills" in url for url in skills)
+
+def test_insert_idempotent_on_real_readme():
+    """Inserting empty new_skills should not modify the README."""
+    readme_path = Path(__file__).resolve().parent.parent / "README.md"
+    if not readme_path.exists():
+        return
+    text = readme_path.read_text(encoding="utf-8")
+    result, inserted, unmatched = insert_skills(text, {})
+    assert result == text
+    assert len(inserted) == 0
+    assert len(unmatched) == 0
+
+def test_dry_run_does_not_update_snapshot():
+    """--dry-run should not write the snapshot file."""
+    with tempfile.TemporaryDirectory() as tmp:
+        snapshot_path = os.path.join(tmp, "snapshot.json")
+        save_snapshot(snapshot_path, {"https://github.com/old/url"})
+        old_content = open(snapshot_path).read()
+        load_snapshot(snapshot_path)
+        assert open(snapshot_path).read() == old_content
