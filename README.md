@@ -1082,6 +1082,7 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 | [SHADOWPR0/beautiful_prose](https://github.com/SHADOWPR0/beautiful_prose) | ![GitHub Stars](https://img.shields.io/github/stars/SHADOWPR0/beautiful_prose?style=flat-square&logo=github&label=★) | Hard-edged writing style contract for timeless, forceful English prose without AI tics |
 | [blader/humanizer](https://github.com/blader/humanizer) | ![GitHub Stars](https://img.shields.io/github/stars/blader/humanizer?style=flat-square&logo=github&label=★) | Remove signs of AI-generated writing from text, making it sound more natural and human |
 | [Xquik-dev/tweetclaw](https://github.com/Xquik-dev/tweetclaw) | ![GitHub Stars](https://img.shields.io/github/stars/Xquik-dev/tweetclaw?style=flat-square&logo=github&label=★) | 40+ X/Twitter actions: post, extract, monitor, compose |
+| [Eronred/aso-skills](https://github.com/Eronred/aso-skills) | ![GitHub Stars](https://img.shields.io/github/stars/Eronred/aso-skills?style=flat-square&logo=github&label=★) | 30+ App Store Optimization skills for keyword research, metadata optimization, competitor analysis, creative optimization, and mobile growth strategies via Appeeky API |
 
 </details>
 
@@ -1119,6 +1120,7 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 | [SeanZoR/claude-speed-reader](https://github.com/SeanZoR/claude-speed-reader) | ![GitHub Stars](https://img.shields.io/github/stars/SeanZoR/claude-speed-reader?style=flat-square&logo=github&label=★) | Speed read Claude's responses at 600+ WPM using RSVP with Spritz-style ORP highlighting |
 | [Charlie85270/Dorothy](https://github.com/Charlie85270/Dorothy) | ![GitHub Stars](https://img.shields.io/github/stars/Charlie85270/Dorothy?style=flat-square&logo=github&label=★) | Orchestrate multiple AI CLI agents with automations and MCP servers |
 | [Digidai/product-manager-skills](https://github.com/Digidai/product-manager-skills) | ![GitHub Stars](https://img.shields.io/github/stars/Digidai/product-manager-skills?style=flat-square&logo=github&label=★) | Senior PM agent with 30+ frameworks and SaaS metrics |
+| [deusyu/translate-book](https://github.com/deusyu/translate-book) | ![GitHub Stars](https://img.shields.io/github/stars/deusyu/translate-book?style=flat-square&logo=github&label=★) | Translate books (PDF/DOCX/EPUB) via parallel sub-agents with resume |
 
 </details>
 
@@ -1187,13 +1189,19 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 | [Skill_Seekers](https://github.com/yusufkaraaslan/Skill_Seekers) | ![GitHub Stars](https://img.shields.io/github/stars/yusufkaraaslan/Skill_Seekers?style=flat-square&logo=github&label=★) | Automatically convert documentation websites, GitHub repositories, and PDFs into Claude AI skills in minutes |
 | [NoizAI/skills](https://github.com/NoizAI/skills) | ![GitHub Stars](https://img.shields.io/github/stars/NoizAI/skills?style=flat-square&logo=github&label=★) | Human-like TTS workflows with local/cloud APIs and app delivery |
 | [Kevin7Qi/codex-collab](https://github.com/Kevin7Qi/codex-collab) | ![GitHub Stars](https://img.shields.io/github/stars/Kevin7Qi/codex-collab?style=flat-square&logo=github&label=★) | Collaborate with Codex from Claude Code |
-
+| [truongduy2611/app-store-preflight-skills](https://github.com/truongduy2611/app-store-preflight-skills) | ![GitHub Stars](https://img.shields.io/github/stars/truongduy2611/app-store-preflight-skills?style=flat-square&logo=github&label=★) | Scan iOS/macOS projects to catch common mistakes that lead to App Store rejection before submission |
+| [coderabbitai/skills](https://github.com/coderabbitai/skills) | ![GitHub Stars](https://img.shields.io/github/stars/coderabbitai/skills?style=flat-square&logo=github&label=★) | Code review and PR autofix workflows for coding agents |
 | [ethos-link/rails-conventions](https://github.com/ethos-link/rails-conventions) | ![GitHub Stars](https://img.shields.io/github/stars/ethos-link/rails-conventions?style=flat-square&logo=github&label=★) | Rails 8 conventions for consistent production code changes |
+| [muthuishere/hand-drawn-diagrams](https://github.com/muthuishere/hand-drawn-diagrams) | ![GitHub Stars](https://img.shields.io/github/stars/muthuishere/hand-drawn-diagrams?style=flat-square&logo=github&label=★) | Generate hand-drawn Excalidraw diagrams from a prompt — animated SVG, hosted edit link, and PNG export. Works with Claude Code, Codex, Gemini CLI, and any agent supporting standard skill paths |
+| [uucz/moyu](https://github.com/uucz/moyu) | ![GitHub Stars](https://img.shields.io/github/stars/uucz/moyu?style=flat-square&logo=github&label=★) | Anti-over-engineering skill with 5 variants and 10 platforms |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | ![GitHub Stars](https://img.shields.io/github/stars/mattpocock/skills?style=flat-square&logo=github&label=★) | 17 dev workflow skills: PRD writing, TDD, codebase architecture, git guardrails, issue triage, refactoring plans, and more |
+| [mukul975/Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | ![GitHub Stars](https://img.shields.io/github/stars/mukul975/Anthropic-Cybersecurity-Skills?style=flat-square&logo=github&label=★) | 753 cybersecurity skills across 38 domains: cloud security, pentesting, red teaming, DFIR, malware analysis, threat intel, and more (MITRE ATT&CK mapped) |
 </details>
 
 <details>
 <summary><h3 style="display:inline">Context Engineering</h3></summary>
-
+| [ShunsukeHayashi/agent-skill-bus](https://github.com/ShunsukeHayashi/agent-skill-bus) | ![GitHub Stars](https://img.shields.io/github/stars/ShunsukeHayashi/agent-skill-bus?style=flat-square&logo=github&label=★) | Self-improving task orchestration for AI agent systems |
+| [mcollina/skills](https://github.com/mcollina/skills/tree/main/skills) | ![GitHub Stars](https://img.shields.io/github/stars/mcollina/skills?style=flat-square&logo=github&label=★) | 11 skills by Matteo Collina: Node.js, Fastify, TypeScript, OAuth, Git/GitHub, ESLint neostandard, documentation (Diataxis), Node.js core internals, skill optimizer, and more |
 | Skill | Stars | Description |
 |-------|-------|-------------|
 | [muratcankoylan/context-fundamentals](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/context-fundamentals) | ![GitHub Stars](https://img.shields.io/github/stars/muratcankoylan/Agent-Skills-for-Context-Engineering?style=flat-square&logo=github&label=★) | Understand what context is, why it matters, and the anatomy of context in agent systems |
@@ -1235,8 +1243,11 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 | [video-db/skills](https://github.com/video-db/skills) | ![GitHub Stars](https://img.shields.io/github/stars/video-db/skills?style=flat-square&logo=github&label=★) | Realtime and batch video workflows: capture screen/audio, ingest URLs/YouTube/RTSP, transcribe, index, search, generate subtitles, edit timelines, and stream HLS output |
 | [materials-simulation-skills](https://github.com/HeshamFS/materials-simulation-skills) | ![GitHub Stars](https://img.shields.io/github/stars/HeshamFS/materials-simulation-skills?style=flat-square&logo=github&label=★) | Agent skills for computational materials science: numerical stability, time-stepping, linear solvers, mesh generation, simulation validation, parameter optimization, and post-processing |
 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | ![GitHub Stars](https://img.shields.io/github/stars/wanshuiyin/Auto-claude-code-research-in-sleep?style=flat-square&logo=github&label=★) | Autonomous ML research with cross-model review loops and GPU deployment |
-
+| [transloadit/skills](https://github.com/transloadit/skills/tree/main/skills) | ![GitHub Stars](https://img.shields.io/github/stars/transloadit/skills?style=flat-square&logo=github&label=★) | Transloadit skill collection (6) |
+| [talkstream/ru-text](https://github.com/talkstream/ru-text) | ![GitHub Stars](https://img.shields.io/github/stars/talkstream/ru-text?style=flat-square&logo=github&label=★) | Russian text quality: ~1,040 rules for typography, info-style, editorial, UX writing, business correspondence. Cross-platform: Claude Code, Codex CLI, Gemini CLI, Cursor. |
 | [takechanman1228/claude-ecom](https://github.com/takechanman1228/claude-ecom) | ![GitHub Stars](https://img.shields.io/github/stars/takechanman1228/claude-ecom?style=flat-square&logo=github&label=★) | Ecommerce CSV to business review with KPI decomposition |
+| [meodai/skill.color-expert](https://github.com/meodai/skill.color-expert) | ![GitHub Stars](https://img.shields.io/github/stars/meodai/skill.color-expert?style=flat-square&logo=github&label=★) | Color science expert skill with 286K words of reference material covering OKLCH/OKLAB, palette generation, accessibility/contrast, color naming, pigment mixing, and historical color theory |
+| [bitwize-music-studio/claude-ai-music-skills](https://github.com/bitwize-music-studio/claude-ai-music-skills) | ![GitHub Stars](https://img.shields.io/github/stars/bitwize-music-studio/claude-ai-music-skills?style=flat-square&logo=github&label=★) | Full-lifecycle AI music album production |
 </details>
 | [helius-labs/helius-skills](https://github.com/helius-labs/core-ai/tree/main/helius-skills) | ![GitHub Stars](https://img.shields.io/github/stars/helius-labs/core-ai?style=flat-square&logo=github&label=★) | Ship Solana apps end-to-end; transaction sending, asset queries, real-time streaming, token swaps, prediction markets, browser wallets, and deep research into protocol internals all powered by Helius APIs, DFlow trading, and Phantom wallet integrations |
 
