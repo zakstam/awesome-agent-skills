@@ -35,6 +35,12 @@ SKIP_SECTIONS = {
     "skills paths for other ai coding assistants",
 }
 
+SECTION_FALLBACKS = {
+    "skills by courier": "Community Skills > Productivity and Collaboration",
+    "skills by resend": "Community Skills > Productivity and Collaboration",
+    "community skills > vector databases": "Community Skills > Specialized Domains",
+}
+
 
 def parse_readme(text: str) -> dict[str, SkillEntry]:
     """Parse a README and return a dict of url -> SkillEntry."""
@@ -271,6 +277,10 @@ def insert_skills(
 
     for section_name, entries in by_section.items():
         key = section_name.lower()
+        if key not in sections:
+            fallback = SECTION_FALLBACKS.get(key)
+            if fallback is not None:
+                key = fallback.lower()
         if key not in sections:
             unmatched.extend(entries)
             continue

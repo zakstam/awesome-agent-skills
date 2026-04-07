@@ -229,6 +229,53 @@ def test_insert_unmatched_section():
     assert len(inserted) == 0
     assert len(unmatched) == 1
 
+def test_insert_uses_section_fallbacks_for_missing_upstream_sections():
+    readme = """### Community Skills
+
+<details>
+<summary><h3 style="display:inline">Productivity and Collaboration</h3></summary>
+
+| Skill | Stars | Description |
+|-------|-------|-------------|
+| [foo/bar](https://github.com/foo/bar) | ![GitHub Stars](https://img.shields.io/github/stars/foo/bar) | Existing productivity skill |
+
+</details>
+
+<details>
+<summary><h3 style="display:inline">Specialized Domains</h3></summary>
+
+| Skill | Stars | Description |
+|-------|-------|-------------|
+| [baz/qux](https://github.com/baz/qux) | ![GitHub Stars](https://img.shields.io/github/stars/baz/qux) | Existing specialized skill |
+
+</details>"""
+    new_skills = {
+        "https://github.com/trycourier/courier-skills": SkillEntry(
+            url="https://github.com/trycourier/courier-skills",
+            description="Multi-channel notifications via email, SMS, push, and chat",
+            section="Skills by Courier",
+            raw_line="ignored",
+        ),
+        "https://github.com/resend/resend-skills/tree/main/skills/resend": SkillEntry(
+            url="https://github.com/resend/resend-skills/tree/main/skills/resend",
+            description="Send and manage emails via the Resend API",
+            section="Skills by Resend",
+            raw_line="ignored",
+        ),
+        "https://github.com/qdrant/skills": SkillEntry(
+            url="https://github.com/qdrant/skills",
+            description="Vector database skills",
+            section="Community Skills > Vector Databases",
+            raw_line="ignored",
+        ),
+    }
+    result, inserted, unmatched = insert_skills(readme, new_skills)
+    assert "trycourier/courier-skills" in result
+    assert "resend/resend-skills" in result
+    assert "qdrant/skills" in result
+    assert len(inserted) == 3
+    assert len(unmatched) == 0
+
 from sync_upstream import refresh_top15
 
 def test_refresh_top15_replaces_table():

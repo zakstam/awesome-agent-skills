@@ -1121,11 +1121,17 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 | [Charlie85270/Dorothy](https://github.com/Charlie85270/Dorothy) | ![GitHub Stars](https://img.shields.io/github/stars/Charlie85270/Dorothy?style=flat-square&logo=github&label=★) | Orchestrate multiple AI CLI agents with automations and MCP servers |
 | [Digidai/product-manager-skills](https://github.com/Digidai/product-manager-skills) | ![GitHub Stars](https://img.shields.io/github/stars/Digidai/product-manager-skills?style=flat-square&logo=github&label=★) | Senior PM agent with 30+ frameworks and SaaS metrics |
 | [deusyu/translate-book](https://github.com/deusyu/translate-book) | ![GitHub Stars](https://img.shields.io/github/stars/deusyu/translate-book?style=flat-square&logo=github&label=★) | Translate books (PDF/DOCX/EPUB) via parallel sub-agents with resume |
+| [trycourier/courier-skills](https://github.com/trycourier/courier-skills) | ![GitHub Stars](https://img.shields.io/github/stars/trycourier/courier-skills?style=flat-square&logo=github&label=★) | Multi-channel notifications via email, SMS, push, and chat |
 
+| [resend/resend](https://github.com/resend/resend-skills/tree/main/skills/resend) | ![GitHub Stars](https://img.shields.io/github/stars/resend/resend-skills?style=flat-square&logo=github&label=★) | Send and manage emails via the Resend API |
 </details>
+| [resend/react-email](https://github.com/resend/resend-skills/tree/main/skills/react-email) | ![GitHub Stars](https://img.shields.io/github/stars/resend/resend-skills?style=flat-square&logo=github&label=★) | Build emails with React Email components |
 
+| [resend/email-best-practices](https://github.com/resend/resend-skills/tree/main/skills/email-best-practices) | ![GitHub Stars](https://img.shields.io/github/stars/resend/resend-skills?style=flat-square&logo=github&label=★) | Email deliverability and design best practices |
 <details>
+| [resend/agent-email-inbox](https://github.com/resend/resend-skills/tree/main/skills/agent-email-inbox) | ![GitHub Stars](https://img.shields.io/github/stars/resend/resend-skills?style=flat-square&logo=github&label=★) | AI agent email inbox management |
 <summary><h3 style="display:inline">Development and Testing</h3></summary>
+| [resend/resend-cli](https://github.com/resend/resend-skills/tree/main/skills/resend-cli) | ![GitHub Stars](https://img.shields.io/github/stars/resend/resend-skills?style=flat-square&logo=github&label=★) | Resend CLI commands and workflows |
 
 | Skill | Stars | Description |
 |-------|-------|-------------|
@@ -1248,6 +1254,7 @@ Official Web3 and trading skills from the Binance team. Includes crypto market d
 | [takechanman1228/claude-ecom](https://github.com/takechanman1228/claude-ecom) | ![GitHub Stars](https://img.shields.io/github/stars/takechanman1228/claude-ecom?style=flat-square&logo=github&label=★) | Ecommerce CSV to business review with KPI decomposition |
 | [meodai/skill.color-expert](https://github.com/meodai/skill.color-expert) | ![GitHub Stars](https://img.shields.io/github/stars/meodai/skill.color-expert?style=flat-square&logo=github&label=★) | Color science expert skill with 286K words of reference material covering OKLCH/OKLAB, palette generation, accessibility/contrast, color naming, pigment mixing, and historical color theory |
 | [bitwize-music-studio/claude-ai-music-skills](https://github.com/bitwize-music-studio/claude-ai-music-skills) | ![GitHub Stars](https://img.shields.io/github/stars/bitwize-music-studio/claude-ai-music-skills?style=flat-square&logo=github&label=★) | Full-lifecycle AI music album production |
+| [qdrant/skills](https://github.com/qdrant/skills) | ![GitHub Stars](https://img.shields.io/github/stars/qdrant/skills?style=flat-square&logo=github&label=★) | Agent skills for Qdrant vector search, covering scaling, performance optimization, search quality, monitoring, deployment, model migration, version upgrades, and SDK usage across Python, TypeScript, Rust, Go, .NET, and Java |
 </details>
 | [helius-labs/helius-skills](https://github.com/helius-labs/core-ai/tree/main/helius-skills) | ![GitHub Stars](https://img.shields.io/github/stars/helius-labs/core-ai?style=flat-square&logo=github&label=★) | Ship Solana apps end-to-end; transaction sending, asset queries, real-time streaming, token swaps, prediction markets, browser wallets, and deep research into protocol internals all powered by Helius APIs, DFlow trading, and Phantom wallet integrations |
 
